@@ -27,3 +27,6 @@ public protected *;
 -keepclassmembers class * {
 @**.UnsupportedAppUsage *;
 }
+
+# 不混淆某个包下的类
+-keep class android.hardware.brawn.** {*;}

@@ -163,7 +163,7 @@ public class PhoneFactory {
 
                 int[] networkModes = new int[numPhones];
                 sPhones = new Phone[numPhones];
-                sCommandsInterfaces = new RIL[numPhones];
+                sCommandsInterfaces = new CommandsInterface[numPhones];
                 sTelephonyNetworkFactories = new TelephonyNetworkFactory[numPhones];
 
                 for (int i = 0; i < numPhones; i++) {
@@ -172,9 +172,15 @@ public class PhoneFactory {
                     networkModes[i] = RILConstants.PREFERRED_NETWORK_MODE;
 
                     Rlog.i(LOG_TAG, "Network Mode set to " + Integer.toString(networkModes[i]));
-                    sCommandsInterfaces[i] = new RIL(context,
+                    if(i == 1) {
+                        sCommandsInterfaces[i] = new com.android.internal.telephony.brawn.RIL(context,
+                             RadioAccessFamily.getRafFromNetworkType(networkModes[i]),
+                             cdmaSubscription, i);
+                    } else {
+                        sCommandsInterfaces[i] = new RIL(context,
                             RadioAccessFamily.getRafFromNetworkType(networkModes[i]),
                             cdmaSubscription, i);
+                    }
                 }
 
                 if (numPhones > 0) {
