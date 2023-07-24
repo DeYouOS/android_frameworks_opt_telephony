@@ -172,7 +172,7 @@ public class PhoneFactory {
                     networkModes[i] = RILConstants.PREFERRED_NETWORK_MODE;
 
                     Rlog.i(LOG_TAG, "Network Mode set to " + Integer.toString(networkModes[i]));
-                    if(i == 1) {
+                    if(i == 1 && !com.android.internal.telephony.brawn.RIL.isBrawnEmpty()) {
                         sCommandsInterfaces[i] = new com.android.internal.telephony.brawn.RIL(context,
                              RadioAccessFamily.getRafFromNetworkType(networkModes[i]),
                              cdmaSubscription, i);
