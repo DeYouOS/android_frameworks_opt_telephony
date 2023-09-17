@@ -69,7 +69,7 @@ java_library {
         ":framework-telephony-common-shared-srcs",
         ":net-utils-telephony-common-srcs",
         ":statslog-cellbroadcast-java-gen",
-        ":brawn-telephony-common-srcs",
+        ":brawn_frameworks_opt_telephony-srcs",
         "src/java/**/I*.aidl",
         "src/java/**/*.logtags",
     ],
