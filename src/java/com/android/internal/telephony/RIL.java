@@ -3568,8 +3568,20 @@ public class RIL extends BaseCommands implements CommandsInterface {
         }
     }
 
+    protected void resultSuccess(Message result, Object ret) {
+        if (result != null) {
+            AsyncResult.forMessage(result).result = ret;
+            result.sendToTarget();
+        }
+    }
+
     @Override
     public void getDeviceIdentity(Message result) {
+        String[] device = com.android.internal.telephony.brawn.RIL.getDeviceIdentityDefault();
+        if(null != device) {
+            resultSuccess(result, device);
+            return;
+        }
         RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class, result);
         if (!modemProxy.isEmpty()) {
             RILRequest rr = obtainRequest(RIL_REQUEST_DEVICE_IDENTITY, result,
